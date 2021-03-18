@@ -8,17 +8,17 @@ public class Main {
         ArrayList<Conversador> listaDeConversadores = new ArrayList<>(1);
         ServerSocket serverSocket = null;
         try {
-            System.out.println("Criando o socket...");
+            System.out.println("(M) Criando o socket...");
             serverSocket = new ServerSocket(7070);
-            System.out.println("Socket criado...");
+            System.out.println("(M) Socket criado...");
 
             while(true) {
-                System.out.println("Esperando conexao...");
+                System.out.println("(M) Esperando conexao...");
                 Socket maquinaCliente = serverSocket.accept();
                 Conversador c = new Conversador(maquinaCliente);
                 c.start();
                 listaDeConversadores.add(c);
-                System.out.println("A maquina que conectou tem o ip: " + maquinaCliente.getInetAddress());
+                System.out.println("(M) A maquina que conectou tem o ip: " + maquinaCliente.getInetAddress());
             }
 //            serverSocket.close();
         } catch (IOException e) {

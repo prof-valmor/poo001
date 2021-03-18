@@ -1,8 +1,11 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class Conversador extends Thread {
     private Socket cliente;
-    boolean isRunning = false;
+    private boolean isRunning = false;
+    private BufferedReader reader;
 
     public Conversador(Socket alguem) {
         cliente = alguem;
@@ -11,13 +14,28 @@ public class Conversador extends Thread {
     }
     // Aqui vamos fazer a leitura e a escrita... a conversa acontece aqui.
     public void run() {
-        String mensagem = "";
-        while(isRunning) {
+        try {
+            conversar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void conversar() throws Exception {
+        String mensagem = "";
+        reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+        int contador = 0;
+        while(isRunning) {
+            mensagem = reader.readLine();
+            System.out.println("Mensagem " + (++contador) + " eh: " + mensagem);
             //
             if(mensagem.equalsIgnoreCase("sair")){
                 isRunning = false;
             }
         }
+        //
+        System.out.println("Conversador fechando..." + this.getName());
+        //
+        cliente.close();
     }
 }
