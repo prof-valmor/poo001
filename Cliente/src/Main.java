@@ -18,6 +18,14 @@ public class Main {
         }
     }
 
+    private static void escreverParaOGoogle() throws IOException {
+        String mensagem = "GET / HTTP/1.1";
+        PrintStream printer = new PrintStream(socket.getOutputStream());
+        printer.println(mensagem);
+        printer.println();
+        System.out.println("Passou no escrever");
+    }
+
     private static void enviarLogin() throws IOException {
 //        String mensagem = "GET / HTTP/1.1";
         String mensagem = "{ \"login\": { \"user-id\": \"colocar aqui o nome do usuario\" } }";
