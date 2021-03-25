@@ -3,6 +3,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Janela1 extends JFrame {
     private final Janela1_List janelaLista;
@@ -31,6 +33,16 @@ public class Janela1 extends JFrame {
                 else {
                     janelaLista.updateLista(new String[]{"ccacaacaacaa", "nbnbnbnbnbnbnb", "nnonononono 3"});
                 }
+            }
+        });
+        JButton btLogin = new JButton("Login");
+        add(btLogin, BorderLayout.SOUTH);
+
+        btLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String resp = Talker.getInstance().login("Valmor");
+                System.out.println("NO BOTAO: " + resp);
             }
         });
 
