@@ -36,7 +36,7 @@ public class Talker {
         System.out.println(mensagem);
         try {
             abrirSocket();
-            escreverParaOServidor(mensagem);
+            escreverParaOServidor("login", mensagem);
             resposta = lerRespostaDoServidor();
             socket.close();
         } catch (IOException e) {
@@ -45,19 +45,24 @@ public class Talker {
         return resposta;
     }
 
-    public String getMensagens(String user) {
+    public Mensagem[] getMensagens(String user) {
         String mensagem = "{ \"get\": { \"user-id\": \"" + user +"\" } }";
         String resposta = null;
         System.out.println(mensagem);
         try {
             abrirSocket();
-            escreverParaOServidor(mensagem);
+            escreverParaOServidor("get", mensagem);
             resposta = lerRespostaDoServidor();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resposta;
+        //TODO converter resposta para o Array.
+        Mensagem m1 = new Mensagem("aluno1","aluno2","prova","adaddadasdas");
+        Mensagem m2 = new Mensagem("aluno2","aluno1","re:prova","adaddadasdas");
+        Mensagem m3 = new Mensagem("aluno1","aluno2","prova","teste123");
+        Mensagem[] array = new Mensagem[]{m1, m2, m3};
+        return array;
     }
 
     private void abrirSocket() throws IOException {
@@ -75,16 +80,27 @@ public class Talker {
      */
     public String enviarMensagem(String user, String destinatario, String assunto, String texto) {
         String mensagem = "{ \"send\": { \"remetente\": \"" + user + "\", \"destinatario\": \""+ destinatario +"\", \"assunto\": \""+assunto+"\", \"texto\": \""+texto+"\" } }";
-        String resposta = "";
-//        abrirSocket();
-//        escrever(mensagem);
-//        String resposta = ler();
+        String resposta = "nao conseguiu enviar...";
+        try {
+            abrirSocket();
+            escreverParaOServidor("send", mensagem);
+            resposta = lerRespostaDoServidor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return resposta;
     }
 
-    private void escreverParaOServidor(String mensagem) throws IOException {
+    private void escreverParaOServidor(String what, String mensagem) throws IOException {
         PrintStream printer = new PrintStream(socket.getOutputStream());
-        printer.println(mensagem);
+        mensagem = mensagem.replace(" ", "%20");
+
+        printer.println("GET /" + what + "?json="+mensagem+ " HTTP/1.1");
+        System.out.println("GET /" + what + "?json="+mensagem+" HTTP/1.1");
+        printer.println("Host: catolicasc-bigdata-valmor123.mybluemix.net");
+        printer.println("Accept: */*");
+        printer.println("Connection: Close");
+
         printer.println();
         System.out.println("Passou no escrever");
     }
@@ -97,6 +113,7 @@ public class Talker {
             System.out.println(linha);
             linha = reader.readLine();
         }
+        //TODO tratar a mensagem e devolver apenas o json.
         reader.close();
         System.out.println("termino da leitura");
         return resposta;
