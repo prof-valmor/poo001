@@ -4,5 +4,7 @@ public class Main {
         Janela1 tree = new Janela1(lista);
         tree.setVisible(true);
         lista.setVisible(true);
+
+        JanelaForm frm = new JanelaForm();
     }
 }

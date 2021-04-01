@@ -57,12 +57,43 @@ public class Talker {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Array: " + resposta);
+        //
+
         //TODO converter resposta para o Array.
         Mensagem m1 = new Mensagem("aluno1","aluno2","prova","adaddadasdas");
         Mensagem m2 = new Mensagem("aluno2","aluno1","re:prova","adaddadasdas");
         Mensagem m3 = new Mensagem("aluno1","aluno2","prova","teste123");
-        Mensagem[] array = new Mensagem[]{m1, m2, m3};
+//        Mensagem[] array = new Mensagem[]{m1, m2, m3};
+        Mensagem[] array = converterRespostaEmMensagens(resposta);
         return array;
+    }
+
+    private Mensagem[] converterRespostaEmMensagens(String resposta) {
+
+        /**
+         * {
+         *   "mensagens": [
+         *     {
+         *       "_id": "3d1e6c9c17eceb2397bfe7c85ef6141f",
+         *       "_rev": "1-c2ff1ef129907abd73f2e61c8f3e65b3",
+         *       "remetente": "Usuario1",
+         *       "destinatario": "Valmor",
+         *       "assunto": "exemplo",
+         *       "texto": "enviandoumamensagem"
+         *     },
+         *     {
+         *       "_id": "ae029ba8f19e5cdf947d398ffe736e15",
+         *       "_rev": "1-d3c92bdcdd30c40fcd75f5e16615e5bb",
+         *       "remetente": "Usuario1",
+         *       "destinatario": "Valmor",
+         *       "assunto": "exemplo",
+         *       "texto": "enviando uma mensagem"
+         *     }
+         *   ]
+         * }
+         */
+
     }
 
     private void abrirSocket() throws IOException {
@@ -80,7 +111,7 @@ public class Talker {
      */
     public String enviarMensagem(String user, String destinatario, String assunto, String texto) {
         String mensagem = "{ \"send\": { \"remetente\": \"" + user + "\", \"destinatario\": \""+ destinatario +"\", \"assunto\": \""+assunto+"\", \"texto\": \""+texto+"\" } }";
-        String resposta = "nao conseguiu enviar...";
+        String resposta = null;
         try {
             abrirSocket();
             escreverParaOServidor("send", mensagem);

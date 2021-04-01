@@ -41,7 +41,7 @@ public class Janela1 extends JFrame {
         btLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String resp = Talker.getInstance().login("Usuario1");
+                String resp = Talker.getInstance().login("Valmor");
                 System.out.println("NO BOTAO: " + resp);
             }
         });
@@ -50,8 +50,18 @@ public class Janela1 extends JFrame {
         btEnviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String resp = Talker.getInstance().enviarMensagem("Usuario1", "Valmor", "exemplo", "enviando uma mensagem");
+                String resp = Talker.getInstance().enviarMensagem("Usuario1", "Valmor", "teste123", "enviando uma mensagem de teste");
                 System.out.println("Mensagem enviada: " + resp);
+            }
+        });
+
+        JButton btGet = new JButton("GET");
+        add(btGet, BorderLayout.EAST);
+        btGet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Mensagem[] resp = Talker.getInstance().getMensagens("Valmor");
+                //System.out.println("NO BOTAO: " + resp);
             }
         });
 
