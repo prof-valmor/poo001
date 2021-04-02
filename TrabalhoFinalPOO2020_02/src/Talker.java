@@ -70,7 +70,7 @@ public class Talker {
     private ArrayList<Mensagem> converterRespostaEmMensagens(String json) {
         ArrayList<Mensagem> mensagens = null;
         json = json.substring(json.indexOf("\"mensagens\""));
-        if(json.contains("\"mensagens\": []")) {
+        if(json.contains("\"mensagens\":[]")) {
             return null;
         }
         else if(json.contains("\"mensagens\":[")) {
