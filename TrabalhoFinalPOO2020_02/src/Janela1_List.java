@@ -16,7 +16,7 @@ public class Janela1_List extends JFrame {
         myList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                System.out.println("Selecao no List foi: " + ((JList)e.getSource()).getSelectedValue());
+                System.out.println("Selecao no List foi: " + myList.getSelectedValue());
             }
         });
         pack();

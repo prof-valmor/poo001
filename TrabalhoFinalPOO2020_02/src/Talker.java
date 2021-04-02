@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Fala com o Servidor. Suas responsabilidades sao:
@@ -59,41 +60,52 @@ public class Talker {
         }
         System.out.println("Array: " + resposta);
         //
-
-        //TODO converter resposta para o Array.
-        Mensagem m1 = new Mensagem("aluno1","aluno2","prova","adaddadasdas");
-        Mensagem m2 = new Mensagem("aluno2","aluno1","re:prova","adaddadasdas");
-        Mensagem m3 = new Mensagem("aluno1","aluno2","prova","teste123");
-//        Mensagem[] array = new Mensagem[]{m1, m2, m3};
-        Mensagem[] array = converterRespostaEmMensagens(resposta);
-        return array;
+        ArrayList<Mensagem> array = converterRespostaEmMensagens(resposta);
+        if(array == null) return null;
+        Mensagem[] response = new Mensagem[array.size()];
+        response = array.toArray(response);
+        return response;
     }
 
-    private Mensagem[] converterRespostaEmMensagens(String resposta) {
+    private ArrayList<Mensagem> converterRespostaEmMensagens(String json) {
+        ArrayList<Mensagem> mensagens = null;
+        json = json.substring(json.indexOf("\"mensagens\""));
+        if(json.contains("\"mensagens\": []")) {
+            return null;
+        }
+        else if(json.contains("\"mensagens\":[")) {
+            json = json.substring(json.indexOf('{'));
+            json = json.substring(0, json.lastIndexOf('}'));
+            json = json.substring(0, json.lastIndexOf(']'));
+            String[] array = json.split("},");
+            System.out.println("array: " + array.length);
+            if(array.length == 0) {
+                return null;
+            }
+            mensagens = new ArrayList<>(array.length);
+            String remetente = "";
+            String destinatario = "";
+            String assunto = "";
+            String texto = "";
 
-        /**
-         * {
-         *   "mensagens": [
-         *     {
-         *       "_id": "3d1e6c9c17eceb2397bfe7c85ef6141f",
-         *       "_rev": "1-c2ff1ef129907abd73f2e61c8f3e65b3",
-         *       "remetente": "Usuario1",
-         *       "destinatario": "Valmor",
-         *       "assunto": "exemplo",
-         *       "texto": "enviandoumamensagem"
-         *     },
-         *     {
-         *       "_id": "ae029ba8f19e5cdf947d398ffe736e15",
-         *       "_rev": "1-d3c92bdcdd30c40fcd75f5e16615e5bb",
-         *       "remetente": "Usuario1",
-         *       "destinatario": "Valmor",
-         *       "assunto": "exemplo",
-         *       "texto": "enviando uma mensagem"
-         *     }
-         *   ]
-         * }
-         */
+            for(String s : array) {
+                s = s.replace("{","");
+                s = s.replace("}","");
+                s = s.replace("\"", "");
+                String a[] = s.split(",");
+                String fields[];
+                for(String element : a) {
+                    fields = element.split(":");
 
+                    if (fields[0].equalsIgnoreCase("remetente"))   remetente    = fields[1];
+                    else if (fields[0].equalsIgnoreCase("destinatario")) destinatario = fields[1];
+                    else if (fields[0].equalsIgnoreCase("assunto"))      assunto      = fields[1];
+                    else if (fields[0].equalsIgnoreCase("texto"))        texto        = fields[1];
+                }
+                mensagens.add(new Mensagem(remetente, destinatario, assunto, texto));
+            }
+        }
+        return mensagens;
     }
 
     private void abrirSocket() throws IOException {
@@ -144,7 +156,6 @@ public class Talker {
             System.out.println(linha);
             linha = reader.readLine();
         }
-        //TODO tratar a mensagem e devolver apenas o json.
         reader.close();
         System.out.println("termino da leitura");
         return resposta;

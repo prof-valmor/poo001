@@ -61,7 +61,9 @@ public class Janela1 extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Mensagem[] resp = Talker.getInstance().getMensagens("Valmor");
-                //System.out.println("NO BOTAO: " + resp);
+                for(Mensagem m : resp) {
+                    System.out.println(m);
+                }
             }
         });
 
