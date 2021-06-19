@@ -10,6 +10,9 @@ public class Quadrado extends FiguraGeometrica {
     public void setLado(int lado) {
         this.lado = lado;
     }
+    public int getLado() {
+        return lado;
+    }
 
     @Override
     public int calcularArea() {

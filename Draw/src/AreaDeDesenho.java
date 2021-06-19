@@ -12,6 +12,10 @@ public class AreaDeDesenho {
     }
     //vamos apenas imprimir as areas das figuras geometricas contidas no array.
     public void atualizar() {
-        //?qual a logica aqui? TODO.
+        int area;
+        for(FiguraGeometrica f : lista) {
+            area = f.calcularArea();
+            System.out.println("A area de " + f + " eh: " + area);
+        }
     }
 }
