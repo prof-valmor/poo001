@@ -21,7 +21,7 @@ public class MinhaJanela extends JanelaMae {
         botao.setActionCommand("OKAY");
         botao2 = new JButton("Novo Botao");
 
-        botao.setBackground(Color.BLUE);
+        botao.setBackground(Color.CYAN);
         //
         setLayout(new BorderLayout());
         add(label, BorderLayout.CENTER);
