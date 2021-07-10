@@ -1,3 +1,8 @@
+package ui;
+
+import ui.JanelaContato;
+import ui.MinhaJanela;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +14,7 @@ public class GerenciadorJanelas implements ActionListener {
     private JanelaContato janela2;
 
     public GerenciadorJanelas(){
-        janela1 = new MinhaJanela(this);
+        janela1 = new MinhaJanela(this, null);
         janela2 = new JanelaContato(this);
     }
 
