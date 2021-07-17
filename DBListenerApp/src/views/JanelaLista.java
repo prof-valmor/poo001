@@ -1,5 +1,6 @@
 package views;
 
+import banco.BDSingleton;
 import banco.DBListener;
 import banco.Pessoa;
 
@@ -15,6 +16,8 @@ public class JanelaLista extends JFrame implements DBListener {
         super("Lista de Pessoas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         inicializaComponentes();
+        //
+        BDSingleton.getInstance().getBancoDeDados().setObservador(this);
     }
 
     private void inicializaComponentes() {
