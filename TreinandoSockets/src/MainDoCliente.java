@@ -4,13 +4,15 @@ import java.net.Socket;
 public class MainDoCliente {
     public static void main(String args[]) {
         try {
-            Socket conexao = new Socket("10.0.0.109", 2984);
+            Socket conexao = new Socket("localhost", 2984);
             InputStream lerDoServidor = conexao.getInputStream();
             OutputStream escreverParaOServidor = conexao.getOutputStream();
             //
+            System.out.println("Escrevendo para o Server.");
             PrintStream ps = new PrintStream(escreverParaOServidor);
-            ps.println("getName2");
+            ps.println("getDate");
             //
+            System.out.println("Lendo do Server.");
             BufferedReader br = new BufferedReader(new InputStreamReader(lerDoServidor));
             String texto = br.readLine();
             System.out.println("O servidor respondeu: " + texto);

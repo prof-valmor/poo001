@@ -5,9 +5,11 @@ public class MainParaOServidor {
         Servidor s = null;
         try {
             s = new Servidor();
-            s.run();
+            s.aguardaConexoes();
+
         }
         catch(IOException e) {
+            System.out.println("Exception no Main!");
         }
     }
 }
