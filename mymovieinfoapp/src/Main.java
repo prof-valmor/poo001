@@ -1,5 +1,8 @@
 import model.OmDBHelper;
 import model.OmDBHelperListener;
+import presenter.Movie;
+import presenter.MovieListener;
+import presenter.ScreenMoviePresenter;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -8,15 +11,15 @@ import java.net.http.HttpResponse;
 
 public class Main {
     public static void main(String args[]){
-        OmDBHelper helper = new OmDBHelper();
-
-        helper.setListener(new OmDBHelperListener() {
+        ScreenMoviePresenter presenter = new ScreenMoviePresenter();
+        presenter.setMovieListener(new MovieListener() {
             @Override
-            public void chegaramOsDadosDoFilme(String dadosDoFilme) {
-                System.out.println(dadosDoFilme);
+            public void onMovieDataReady(Movie movie) {
+                System.out.println("Dados do Filme: " + movie.toString());
             }
         });
-        helper.requestFilmeByName("Guardians of the Galaxy");
+        presenter.requestMovieData("Guardians of the Galaxy");
+
         System.out.println("Terminando o MAIN!");
     }
 }
