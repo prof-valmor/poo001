@@ -44,13 +44,15 @@ public class ScreenMoviePresenter implements OmDBHelperListener, PosterHelperLis
             movie.sinopse = jsonObject.get("Plot").getAsString();
             movie.dataDeLancamento = jsonObject.get("Released").getAsString();
             String posterUrl = jsonObject.get("Poster").getAsString();
-            posterHelper.requestPoster(posterUrl);  // antes de chamar o listener, precisamos receber o poster.
+            //posterHelper.requestPoster(posterUrl);  // antes de chamar o listener, precisamos receber o poster.
+            movieListener.onMovieDataReady(movie);
         }
 
     }
 
     @Override
     public void chegouOPoster(Image poster) {
-
+        movie.poster = poster;
+        if(movieListener != null) movieListener.onMovieDataReady(movie);
     }
 }
