@@ -17,8 +17,6 @@ import java.util.List;
  */
 public class OmDBConnectionManager {
     private Socket socket;
-    HttpClient httpClient;
-
 
     public String requisitarDados(List<String> requisicao) throws IOException {
         String response = null;

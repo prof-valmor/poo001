@@ -1,16 +1,15 @@
 package model;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class AmazonConnectionManager {
-
-    public String requisitarPoster(List<String> requisicao) throws IOException {
-        String response = null;
-//        fazerConexao();
-//        escreverARequisicao(requisicao);
-//        response = lerAResposta();
-//        fecharConexao();
-        return response;
+    public BufferedImage requisitarPoster(String posterUrl) throws IOException {
+        URLConnection connection = (new URL(posterUrl)).openConnection();
+        BufferedImage resposta = ImageIO.read(connection.getInputStream());
+        return resposta;
     }
 }

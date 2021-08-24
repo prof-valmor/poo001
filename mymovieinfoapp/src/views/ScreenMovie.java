@@ -6,12 +6,14 @@ import presenter.MovieListener;
 import presenter.ScreenMoviePresenter;
 
 import javax.swing.*;
+import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ScreenMovie extends JFrame implements ActionListener, MovieListener {
     JTextArea area;
+    JLabel poster;
     private ScreenMoviePresenter screenMoviePresenter = new ScreenMoviePresenter();
     public ScreenMoviePresenter getScreenMoviePresenter() {
         return screenMoviePresenter;
@@ -29,7 +31,8 @@ public class ScreenMovie extends JFrame implements ActionListener, MovieListener
         btVoltar.addActionListener(this);
         //
         setLayout(new BorderLayout());
-        add(area, BorderLayout.CENTER);
+        add(area, BorderLayout.NORTH);
+        add(poster = new JLabel(), BorderLayout.CENTER);
         add(btVoltar, BorderLayout.SOUTH);
 
         setSize(400, 500);
@@ -45,5 +48,6 @@ public class ScreenMovie extends JFrame implements ActionListener, MovieListener
     @Override
     public void onMovieDataReady(Movie movie) {
         area.setText(movie.toString());
+        poster.setIcon(new ImageIcon(movie.poster));
     }
 }

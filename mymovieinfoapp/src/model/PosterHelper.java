@@ -1,6 +1,7 @@
 package model;
 
-import presenter.ScreenMoviePresenter;
+import java.awt.*;
+import java.io.IOException;
 
 public class PosterHelper {
     private String posterUrl;
@@ -12,8 +13,14 @@ public class PosterHelper {
         runnable = new Runnable() {
             @Override
             public void run() {
-                // precisa abrir outro socket, ler o poster e chamar o listener.
-//                Image response = connectionManager.requisitarPoster();
+                try {
+                    Image response = connectionManager.requisitarPoster(posterUrl);
+                    if(listener != null) {
+                        listener.chegouOPoster(response);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }
@@ -26,6 +33,4 @@ public class PosterHelper {
         this.posterUrl = posterUrl;
         (new Thread(runnable)).start();
     }
-
-
 }
