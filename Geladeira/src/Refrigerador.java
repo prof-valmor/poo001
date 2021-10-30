@@ -1,5 +1,12 @@
 public class Refrigerador {
-    private float temperaturaDeControle;
+    protected float temperaturaDeControle;
+    protected Sensor meuSensor;
+    protected Ventilador meuVentilador;
+
+    public Refrigerador() {
+        meuSensor = new Sensor();
+        meuVentilador = new Ventilador();
+    }
 
     public void setTemperatura(float temperaturaDeControle) {
         this.temperaturaDeControle = temperaturaDeControle;

@@ -613,7 +613,7 @@
 											"top": 230,
 											"width": 208.45703125,
 											"height": 13,
-											"text": "-temperaturaSelecionada: float",
+											"text": "-temperaturaDeControle: float",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3034,7 +3034,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8qpMG6nlHH3Y="
 							},
-							"name": "temperaturaSelecionada",
+							"name": "temperaturaDeControle",
 							"visibility": "private",
 							"type": "float"
 						}
