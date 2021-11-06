@@ -1,4 +1,6 @@
-public class Compressor {
+package modelo;
+
+public class Ventilador {
     public void ligar() {
     }
 

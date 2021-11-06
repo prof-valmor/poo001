@@ -1,3 +1,5 @@
+package modelo;
+
 import java.util.Timer;
 import java.util.TimerTask;
 

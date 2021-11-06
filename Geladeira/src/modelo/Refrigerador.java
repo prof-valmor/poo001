@@ -1,3 +1,5 @@
+package modelo;
+
 public class Refrigerador {
     protected float temperaturaDeControle;
     protected Sensor meuSensor;
