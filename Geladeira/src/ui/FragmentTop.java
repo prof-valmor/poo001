@@ -9,8 +9,7 @@ public class FragmentTop extends JPanel {
     JCheckBox cbMin;
 
     public FragmentTop() {
-        setAlignmentX(CENTER_ALIGNMENT);
-        setAlignmentY(CENTER_ALIGNMENT);
+
         GridLayout grid = new GridLayout(3, 1);
         setLayout(grid);
         cbMax = new JCheckBox("MAX");
