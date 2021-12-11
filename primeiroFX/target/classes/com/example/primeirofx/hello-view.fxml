@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.web.WebView?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.example.primeirofx.HelloController">
+   <children>
+      <TextField prefHeight="26.0" prefWidth="554.0" fx:id="txtUrl"/>
+      <Button layoutX="554.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="43.0" text="Go" fx:id="btGo" onAction="#onGoAction"/>
+      <WebView layoutX="7.0" layoutY="26.0" prefHeight="373.0" prefWidth="594.0" fx:id="webView"/>
+   </children>
+</Pane>
