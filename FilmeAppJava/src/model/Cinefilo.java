@@ -35,8 +35,20 @@ public class Cinefilo {
                     if(response.isSuccessful()) {
                         json = response.body().string();
                     }
-                    if(observer != null) {
-                        observer.acheiOFilme(FilmeParser.parse(json));
+                    if(observer != null) { // se tem alguem observando...
+                        Filme filme = FilmeParser.parse(json);
+                        // baixar o poster da internet...
+                        String urlDoPoster = FilmeParser.getUrlPoster(json);
+                        Request requestPoster = new Request.Builder()
+                                .url(urlDoPoster)
+                                .method("GET", null)
+                                .build();
+                        response = client.newCall(requestPoster).execute();
+                        if(response.isSuccessful()) {
+                            filme.poster = response.body().bytes();
+                        }
+                        // depois chamamos o observer.
+                        observer.acheiOFilme(filme);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
