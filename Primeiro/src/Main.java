@@ -6,5 +6,6 @@ public class Main {
         System.out.println("Digite seu nome.");
         String s = scanner.next();
         System.out.println("Oi " + s);
+	System.out.println("Bye Bye " + s);
     }
 }
